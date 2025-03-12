@@ -1,0 +1,69 @@
+Table user {
+    id_user INT [pk, increment]
+    name VARCHAR
+    email VARCHAR [unique]
+    token VARCHAR
+    confirmed BOOLEAN
+    password VARCHAR
+    role VARCHAR
+    created_at TIMESTAMP
+    updated_at TIMESTAMP
+}
+
+Table orders {
+    id_order INT [pk, increment]
+    id_user INT [ref: > user.id_user]  // Relación directa con la tabla user
+    status VARCHAR
+    date_order DATE
+    direction VARCHAR
+    description VARCHAR  
+    created_at TIMESTAMP
+    updated_at TIMESTAMP
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE DATABASE globostudionew;
+
+USE globostudionew;
+
+-- Crear tabla de usuarios
+CREATE TABLE user (
+    id_user INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
+    token VARCHAR(255),
+    confirmed BOOLEAN,
+    password VARCHAR(255),
+    role VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Crear tabla de pedidos
+CREATE TABLE orders (
+    id_order INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT,  -- Nueva columna de relación
+    status VARCHAR(50),
+    date_order DATE,
+    direction VARCHAR(255),
+    description VARCHAR(255),
+    order_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    order_updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE
+);
+
+
+
